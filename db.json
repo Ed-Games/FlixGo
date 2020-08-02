@@ -1,0 +1,16 @@
+{
+    "categorias": [
+        {
+            "id" : 1,
+            "nome": "Front End",
+            "desc": " uma descrição ai ;)",
+            "cor" : "#cbd1ff"
+        },
+        {
+            "id" : 1,
+            "nome": "Front End",
+            "desc": " uma descrição ai ;)",
+            "cor" : "#cbd1ff"
+        }
+    ]
+}

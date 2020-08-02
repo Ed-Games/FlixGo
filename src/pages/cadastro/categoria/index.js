@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -26,6 +26,29 @@ function CadastroCategoria() {
     setInitialValue(infosDoevento.target.getAttribute('name'), infosDoevento.target.value);
   }
 
+  useEffect(() => {
+    console.log('hello world');
+    setTimeout(() => {
+      setCategorias([
+        ...categorias,
+        [
+          {
+            id: 1,
+            nome: 'Front End',
+            desc: ' uma descrição ai ;)',
+            cor: '#cbd1ff',
+          },
+          {
+            id: 2,
+            nome: 'Back End',
+            desc: ' uma descrição ai ;)',
+            cor: '#cbd1ff',
+          },
+        ],
+      ]);
+    }, 4 * 1000);
+  }, []);
+
   return (
     <PageDefault>
       <h1>
@@ -51,12 +74,15 @@ function CadastroCategoria() {
           Cadastrar
         </Button>
       </form>
+      {categorias.length === 0 && (
+      <div>Loading</div>
+      )}
 
       <ul>
         {/* eslint-disable-next-line arrow-body-style */}
         {categorias.map((categoria) => {
           return (
-            // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line react/no-array-index-key
             <li key={`${categoria.nome}`}>
               {categoria}
             </li>
