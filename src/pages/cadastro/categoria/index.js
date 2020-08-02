@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -26,6 +26,17 @@ function CadastroCategoria() {
     setInitialValue(infosDoevento.target.getAttribute('name'), infosDoevento.target.value);
   }
 
+  useEffect(() => {
+    console.log('hello world');
+    const url = 'http://localhost:8080/categorias';
+    fetch(url).then(async (response) => {
+      const resp = await response.json();
+      setCategorias([
+        ...resp,
+      ]);
+    });
+  }, []);
+
   return (
     <PageDefault>
       <h1>
@@ -51,17 +62,16 @@ function CadastroCategoria() {
           Cadastrar
         </Button>
       </form>
+      {categorias.length === 0 && (
+      <div>Loading</div>
+      )}
 
       <ul>
-        {/* eslint-disable-next-line arrow-body-style */}
-        {categorias.map((categoria) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={`${categoria.nome}`}>
-              {categoria}
-            </li>
-          );
-        })}
+        {categorias.map((categoria) => (
+          <li key={`${categoria.id}`}>
+            {categoria.nome}
+          </li>
+        ))}
       </ul>
       <Link to="/">
         Ir para home
