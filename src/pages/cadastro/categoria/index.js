@@ -28,7 +28,7 @@ function CadastroCategoria() {
 
   useEffect(() => {
     console.log('hello world');
-    const url = 'http://localhost:8080/categorias';
+    const url = 'https://flix-go.herokuapp.com/categorias';
     fetch(url).then(async (response) => {
       const resp = await response.json();
       setCategorias([
