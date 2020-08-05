@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
 
 function CadastroCategoria() {
   const [categorias, setCategorias] = useState([]);
@@ -13,23 +14,14 @@ function CadastroCategoria() {
     cor: '',
   };
 
-  const [initialValues, setInitialValues] = useState(valoresIniciais);
-
-  function setInitialValue(key, value) {
-    setInitialValues({
-      ...initialValues,
-      [key]: value,
-    });
-  }
-
-  function handleRegister(infosDoevento) {
-    setInitialValue(infosDoevento.target.getAttribute('name'), infosDoevento.target.value);
-  }
+  const { initialValues, handleRegister, clearForm } = useForm(valoresIniciais);
 
   useEffect(() => {
     console.log('hello world');
-    const url = 'https://flix-go.herokuapp.com/categorias';
-    fetch(url).then(async (response) => {
+    const URL_TOP = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://flix-go.herokuapp.com/categorias';
+    fetch(URL_TOP).then(async (response) => {
       const resp = await response.json();
       setCategorias([
         ...resp,
@@ -51,7 +43,7 @@ function CadastroCategoria() {
           initialValues.nome,
         ]);
 
-        setInitialValues(valoresIniciais);
+        clearForm();
       }}
       >
 
@@ -69,7 +61,7 @@ function CadastroCategoria() {
       <ul>
         {categorias.map((categoria) => (
           <li key={`${categoria.id}`}>
-            {categoria.nome}
+            {categoria.titulo}
           </li>
         ))}
       </ul>
