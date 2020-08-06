@@ -1,7 +1,7 @@
-import React from 'react'
-import Menu from '../menu'
-import Footer from '../Footer'
-import styled from 'styled-components'
+import React from 'react';
+import styled, { css } from 'styled-components';
+import Menu from '../menu';
+import Footer from '../Footer';
 
 const Main = styled.main`
 background-color: var(--black);
@@ -10,19 +10,22 @@ padding-top:50px;
 padding-left:5%;
 padding-right:5%;
 min-height: 100vh;
+${({ paddingAll }) => css`
+  padding:0;
+`}
 
 `;
 
-function PageDefault(props){
-    return(
-        <>
-            <Menu />
-                <Main>
-                 {props.children}
-                </Main>
-            <Footer />
-        </>
-    )
+function PageDefault(props, paddingAll) {
+  return (
+    <>
+      <Menu />
+      <Main paddingAll={paddingAll}>
+        { props.children }
+      </Main>
+      <Footer />
+    </>
+  );
 }
 
-export default PageDefault
+export default PageDefault;
