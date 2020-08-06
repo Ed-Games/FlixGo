@@ -10,6 +10,7 @@ import categoriasRepository from '../../../repositories/categorias';
 function CadastroDeVideo() {
   const history = useHistory();
   const [categorias, setCategorias] = useState([]);
+  const categoryTitles = categorias.map(({ titulo }) => titulo);
   const { handleRegister, initialValues } = useForm({
     titulo: 'Vídeo Padrão',
     url: 'https://www.youtube.com/watch?v=XcU9GEUZTQA',
@@ -33,10 +34,12 @@ function CadastroDeVideo() {
           event.preventDefault();
           alert('video cadastrado com sucesso');
 
+          const categoriEscolhida = categorias.find((categoria) => categoria.titulo === initialValues.categoria);
+
           videosRepository.create({
             titulo: initialValues.titulo,
             url: initialValues.url,
-            categoriaId: 1,
+            categoriaId: categoriEscolhida.id,
           }).then(() => {
             history.push('/');
           });
@@ -62,6 +65,7 @@ function CadastroDeVideo() {
             name="categoria"
             value={initialValues.categoria}
             onChange={handleRegister}
+            suggestions={categoryTitles}
           />
           <Button type="submit">
             Cadastrar
